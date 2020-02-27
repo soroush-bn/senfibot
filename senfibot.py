@@ -1,10 +1,8 @@
 
 #dar doce py telegram vot bejaye telegram.message masaln bayad update.message ro dar nazar begirim
 #bot.bot hamoon telegram.bote
-import json
-import logging
-import pprint
 
+import logging
 import sqlite3
 from  sqlite3 import Error
 def create_connection(db_file):
@@ -32,7 +30,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 logger = logging.getLogger(__name__)
 def create_user(id,name=None,photo="AgACAgQAAxkBAAIEm15WxFQJaxkprOLkJTmLPK4Nf2fxAAKRsTEbwXW5UhGNhNSJqsz9_f4hGwAEAQADAgADeQAD_yEFAAEYBA",warn_number=0,is_allowed=0,is_admin=0):
-    conn = create_connection(r"C:\Program Files\sqlite\sqlite-tools-win32-x86-3280000\bot2.db")
+    conn = create_connection("bot2.db")
 
     cursor = conn.cursor()
 
@@ -62,7 +60,7 @@ def search_by_user_id_s(userid,username="None"):
     #user=None #mire too db user rp ba id peyda mikone va kole usero barmigardoone
     # age nabood None ro return kone
 def get_all_users():
-    conn = create_connection(r"C:\Program Files\sqlite\sqlite-tools-win32-x86-3280000\bot2.db")
+    conn = create_connection("bot2.db")
 
     cursor = conn.cursor()
     e=cursor.execute('SELECT * FROM user')
@@ -73,7 +71,7 @@ def get_all_users():
     return users
 
 def save_name_s(name2,id):
-    conn = create_connection(r"C:\Program Files\sqlite\sqlite-tools-win32-x86-3280000\bot2.db")
+    conn = create_connection("bot2.db")
 
     cursor = conn.cursor()
     print(name2)
@@ -88,7 +86,7 @@ def save_name_s(name2,id):
 
 
 def save_phone_s(phone,id):
-    conn = create_connection(r"C:\Program Files\sqlite\sqlite-tools-win32-x86-3280000\bot2.db")
+    conn = create_connection("bot2.db")
 
     cursor = conn.cursor()
     print(phone)
@@ -101,7 +99,7 @@ def save_phone_s(phone,id):
 
 def save_image_s(file,id):
     print(file)
-    conn = create_connection(r"C:\Program Files\sqlite\sqlite-tools-win32-x86-3280000\bot2.db")
+    conn = create_connection("bot2.db")
 
     cursor = conn.cursor()
 
@@ -124,7 +122,7 @@ def warn(update, context):
     print (warned_user)
     print(user)
     update.message.reply_text(warned_user.first_name+ " اخطار!!!!! اخطار های شما:   "+str(user['warn_number']+1))
-    conn = create_connection(r"C:\Program Files\sqlite\sqlite-tools-win32-x86-3280000\bot2.db")
+    conn = create_connection("bot2.db")
     cursor = conn.cursor()
     sql = ''' UPDATE user
                      SET warn_number = ? 
@@ -157,7 +155,7 @@ def register(update,context):
 
         update.message.reply_text(
             "{username} شما باید احراز هویت کنید".format(username=update.effective_user.first_name))
-        conn = create_connection(r"C:\Program Files\sqlite\sqlite-tools-win32-x86-3280000\bot2.db")
+        conn = create_connection("bot2.db")
         cursor = conn.cursor()
         sql = ''' UPDATE user
                              SET ehraz = ? 
@@ -276,7 +274,7 @@ def taeed2(update,context):
     choice2=update.callback_query
     users=get_all_users()
     user=users[int(choice)-1]
-    conn = create_connection(r"C:\Program Files\sqlite\sqlite-tools-win32-x86-3280000\bot2.db")
+    conn = create_connection("bot2.db")
     cursor = conn.cursor()
     sql = ''' UPDATE user
                                  SET is_allowed = ? 
@@ -299,7 +297,7 @@ def taeed3(update,context):
 
 
 
-    conn = create_connection(r"C:\Program Files\sqlite\sqlite-tools-win32-x86-3280000\bot2.db")
+    conn = create_connection("bot2.db")
     cursor = conn.cursor()
     sql = ''' UPDATE user
                                      SET is_allowed = ? 
@@ -323,7 +321,7 @@ def done(update, context):
 
 def delete_sticker( update,bot):
     #telegram.ext.callbackcontext.CallbackContext
-    print(pprint.pformat(update))
+
     #print(json.dumps(update.message, indent=4, sort_keys=True))
     print(update)
     print("________________________")
