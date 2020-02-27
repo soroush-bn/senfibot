@@ -1,1 +1,1 @@
-web: python senfibot.py
+worker: python senfibot.py
